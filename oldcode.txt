@@ -1,0 +1,121 @@
+	// var history History
+
+	// for {
+
+	// 	fmt.Printf(prompt)
+
+	// 	userInput := getUserInput(&history)
+
+	// 	_, err := parseLine(userInput)
+
+	// 	if err != nil {
+	// 		fmt.Println(err.Error())
+	// 		continue
+	// 	}
+
+	// 	fmt.Println()
+
+	// }
+
+
+// func resetLine(str string) {
+// 	ClearLine()
+// 	CursorBack()
+// 	fmt.Print(prompt, str)
+// }
+
+// func getUserInput(h *History) string {
+
+// 	userInput := ""
+// 	var char rune
+// 	var key keyboard.Key
+// 	var err error
+
+// 	for key != keyboard.KeyEnter {
+
+// 		char, key, err = keyboard.GetSingleKey()
+
+// 		if err != nil {
+// 			panic(err)
+// 		}
+
+// 		if char == 'q' || key == keyboard.KeyEsc {
+// 			fmt.Println("quitting...")
+// 			os.Exit(0)
+// 		}
+
+// 		if key == keyboard.KeyArrowDown {
+// 			nextInput, ok := h.Next()
+// 			if ok {
+// 				userInput = nextInput
+// 				resetLine(userInput)
+// 				continue
+// 			}
+// 		}
+
+// 		if key == keyboard.KeyArrowUp {
+// 			prevInput, ok := h.Pop()
+// 			if ok {
+// 				userInput = prevInput
+// 				resetLine(userInput)
+// 				continue
+// 			}
+// 		}
+
+// 		if key == keyboard.KeyBackspace2 {
+// 			userInput = removeLastChar(userInput)
+// 			CursorBackOne()
+// 			ClearToEndOfLine()
+// 		}
+
+// 		if key == keyboard.KeyArrowLeft {
+// 			userInput = removeLastChar(userInput)
+// 			CursorBackOne()
+// 		}
+
+// 		if key == keyboard.KeyArrowRight {
+// 			CursorFwdOne()
+// 		}
+
+// 		// fmt.Printf(" char %q", char)
+// 		charStr := string(char)
+
+// 		if key == keyboard.KeySpace {
+// 			charStr = " "
+// 		}
+
+// 		userInput += charStr
+// 		fmt.Print(charStr)
+// 	}
+
+// 	userInput = strings.ReplaceAll(userInput, "\x00", "")
+// 	h.Push(userInput)
+// 	return userInput
+// }
+
+// func getTokens(rawTokens []string) []Token {
+
+// 	tokens := make([]Token, len(rawTokens))
+
+// 	for i := 0; i < len(rawTokens); i++ {
+// 		tokens[i] = Token{raw: rawTokens[i], tokenType: GetTokenType(rawTokens[i])}
+// 	}
+
+// 	return tokens
+// }
+
+// func parseLine(line string) ([]Token, error) {
+
+// 	space := regexp.MustCompile(`\s+`)
+// 	lineTrim := space.ReplaceAllString(line, " ")
+// 	rawTokens := strings.Split(lineTrim, " ")
+
+// 	tokens := getTokens(rawTokens)
+// 	valid := validateTokenSlice(tokens)
+
+// 	if !valid {
+// 		return nil, errors.New("Invalid Input!")
+// 	}
+
+// 	return tokens, nil
+// }
