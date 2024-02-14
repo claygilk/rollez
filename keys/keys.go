@@ -21,18 +21,18 @@ type Terminal struct {
 }
 
 func (t *Terminal) Close() {
-	t.termios.Lflag |= unix.ECHO                           // set 8th bit to 1
-	unix.IoctlSetTermios(t.input, unix.TCSETS, &t.termios) // make syscall
+	t.termios.Lflag |= unix.ECHO                                 // set 8th bit to 1
+	unix.IoctlSetTermios(t.input, ioctlWriteTermios, &t.termios) // make syscall
 }
 
 func OpenTerminal() *Terminal {
 
 	input, _ := unix.Open("/dev/tty", unix.O_RDONLY, 0)
 
-	termios, _ := unix.IoctlGetTermios(input, unix.TCGETS)
+	termios, _ := unix.IoctlGetTermios(input, ioctlReadTermios)
 	termios.Lflag &^= unix.ECHO   // Don't print character
 	termios.Lflag &^= unix.ICANON // Don't buffer until new line
-	unix.IoctlSetTermios(input, unix.TCSETS, termios)
+	unix.IoctlSetTermios(input, ioctlWriteTermios, termios)
 
 	terminal := Terminal{input: input, termios: *termios}
 

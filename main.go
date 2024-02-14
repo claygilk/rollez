@@ -3,9 +3,14 @@ package main
 import (
 	"fmt"
 	"rollez/keys"
+	"runtime"
 )
 
 func main() {
+
+	os := runtime.GOOS
+
+	fmt.Println("OS = ", os)
 
 	terminal := keys.OpenTerminal()
 
